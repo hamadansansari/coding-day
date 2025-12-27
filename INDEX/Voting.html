@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Voting System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .voting-box {
+            background: #fff;
+            padding: 25px;
+            width: 350px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        .candidate {
+            margin: 10px 0;
+        }
+
+        button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<div class="voting-box">
+    <h2>Online Voting</h2>
+
+    <div class="candidate">
+        <strong>Candidate A</strong>
+        <button onclick="vote('A')">Vote</button>
+    </div>
+
+    <div class="candidate">
+        <strong>Candidate B</strong>
+        <button onclick="vote('B')">Vote</button>
+    </div>
+
+    <div class="candidate">
+        <strong>Candidate C</strong>
+        <button onclick="vote('C')">Vote</button>
+    </div>
+
+    <div class="result">
+        <h3>Results:</h3>
+        <p>Candidate A Votes: <span id="voteA">0</span></p>
+        <p>Candidate B Votes: <span id="voteB">0</span></p>
+        <p>Candidate C Votes: <span id="voteC">0</span></p>
+    </div>
+</div>
+
+<script>
+    let votes = {
+        A: 0,
+        B: 0,
+        C: 0
+    };
+
+    function vote(candidate) {
+        votes[candidate]++;
+        document.getElementById("voteA").innerText = votes.A;
+        document.getElementById("voteB").innerText = votes.B;
+        document.getElementById("voteC").innerText = votes.C;
+        alert("Aap ne Candidate " + candidate + " ko vote kar diya!");
+    }
+</script>
+
+</body>
+</html>
