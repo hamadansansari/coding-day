@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Online Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .quiz-box {
+            background: #ffffff;
+            width: 400px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .question {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .options label {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #0d6efd;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0b5ed7;
+        }
+
+        .result {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 15px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-box">
+    <h2>HTML CSS JS Quiz</h2>
+    <div class="question" id="question"></div>
+
+    <div class="options">
+        <label><input type="radio" name="option" value="0"> <span id="opt0"></span></label>
+        <label><input type="radio" name="option" value="1"> <span id="opt1"></span></label>
+        <label><input type="radio" name="option" value="2"> <span id="opt2"></span></label>
+        <label><input type="radio" name="option" value="3"> <span id="opt3"></span></label>
+    </div>
+
+    <button onclick="nextQuestion()">Next</button>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    const quizData = [
+        {
+            question: "HTML ka full form kya hai?",
+            options: [
+                "Hyper Text Markup Language",
+                "High Text Machine Language",
+                "Hyperlinks and Text Markup Language",
+                "Home Tool Markup Language"
+            ],
+            correct: 0
+        },
+        {
+            question: "CSS ka use kis liye hota hai?",
+            options: [
+                "Structure banane ke liye",
+                "Styling ke liye",
+                "Logic likhne ke liye",
+                "Database ke liye"
+            ],
+            correct: 1
+        },
+        {
+            question: "JavaScript ka use kis liye hota hai?",
+            options: [
+                "Web page design",
+                "Database",
+                "Web page ko interactive banane ke liye",
+                "Server banane ke liye"
+            ],
+            correct: 2
+        }
+    ];
+
+    let current = 0;
+    let score = 0;
+
+    function loadQuestion() {
+        const q = quizData[current];
+        document.getElementById("question").innerText = q.question;
+        q.options.forEach((opt, i) => {
+            document.getElementById("opt" + i).innerText = opt;
+        });
+
+        document.querySelectorAll("input[name='option']").forEach(r => r.checked = false);
+    }
+
+    function nextQuestion() {
+        const selected = document.querySelector("input[name='option']:checked");
+
+        if (!selected) {
+            alert("Please select an option!");
+            return;
+        }
+
+        if (parseInt(selected.value) === quizData[current].correct) {
+            score++;
+        }
+
+        current++;
+
+        if (current < quizData.length) {
+            loadQuestion();
+        } else {
+            document.querySelector(".quiz-box").innerHTML =
+                `<h2>Quiz Finished</h2>
+                 <p class="result">Your Score: ${score} / ${quizData.length}</p>`;
+        }
+    }
+
+    loadQuestion();
+</script>
+
+</body>
+</html>
+
